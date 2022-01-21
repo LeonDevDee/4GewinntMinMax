@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=KI
+comment0.text=\r\n\ Beschreiben\ Sie\ hier\ die\ Klasse\ KI.\r\n\ \r\n\ @author\ (Ihr\ Name)\ \r\n\ @version\ (eine\ Versionsnummer\ oder\ ein\ Datum)\r\n
+comment1.params=color\ suchtiefe
+comment1.target=KI(java.awt.Color,\ int)
+comment2.params=
+comment2.target=void\ ermittleZuSpielendeSpalte()
+numComments=3

@@ -6,14 +6,14 @@ import java.awt.Color;
  * @author Raphaél und Alex
  * @version 21.09.2021
  */
-public class Spieler
+public abstract class Spieler
 {
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
-    private Color color;
-    private Stein [] steine;
-
-    private int aktuellerStein;
-
+    protected Color color;
+    protected Stein [] steine;
+    protected int aktuellerStein;
+    protected int zuSpielendeSpalte; // -1 -> noch keine Spalte gesetzt
+    
     /**
      * Konstruktor für Objekte der Klasse Spieler
      */
@@ -21,6 +21,7 @@ public class Spieler
     {
         this.color = color;
         aktuellerStein = 20;
+        zuSpielendeSpalte = -1;
         initSteine();
     }
 
@@ -88,11 +89,19 @@ public class Spieler
      * 
      * @return Stein 
      */
-    public Stein setzeStein()
+    public Stein gibAktuellenStein()
     {
         Stein akt = steine[aktuellerStein];
         steine[aktuellerStein] = null;
         aktuellerStein--;
         return akt;
+    }
+    
+    public int gibZuSpielendeSpalte(){
+        return zuSpielendeSpalte;
+    }
+    
+    public void setzeZuSpielendeSpalte(int spalte){
+        zuSpielendeSpalte = spalte;
     }
 }

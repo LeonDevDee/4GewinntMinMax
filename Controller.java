@@ -37,7 +37,11 @@ public class Controller
             {
                 if(anzeige.getButtons()[i].mouseClicked())
                 {
-                    modell.setzeStein(i);
+                    modell.benutzereingabe(i);
+                    modell.modellUpdate();
+                    updateView();
+                    //KI
+                    modell.modellUpdate();
                     updateView();
                 }
             }

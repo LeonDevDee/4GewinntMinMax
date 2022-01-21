@@ -21,8 +21,8 @@ public class Modell
     public Modell()
     {
         modell = new Stein[6][7];
-        spieler1 = new Spieler(Color.red);
-        spieler2 = new Spieler(Color.yellow);
+        spieler1 = new Benutzer(Color.red);
+        spieler2 = new KI(Color.yellow,3);
         aktuellerSpieler = spieler1;
     }
 
@@ -42,25 +42,27 @@ public class Modell
      * Stein an aktueller Position erweitert. Sollte noch kein Spieler gewionnen haben, wird der 
      * Spieler gewechselt.
      * 
-     * @param spalte - gibt die Spalte an, die vom Spieler gewählt wurde (Spaltenzählung ab 0)
+     * Die Spalte wird von dem Spieler als zuSpielendeSpalte genommen
      */
-    public void setzeStein(int spalte)
+    public void setzeStein()
     {
         if(aktuellerSpieler.steineVorhanden())
         {
-            Stein aktuell = aktuellerSpieler.setzeStein();
+            int spalte = aktuellerSpieler.gibZuSpielendeSpalte();
+            
+            Stein aktuell = aktuellerSpieler.gibAktuellenStein();
             aktuell.setX(spalte*100+10);
             int zeile = gibZeile(spalte);
             if(zeile != -1)
             {
                 aktuell.setY(zeile * 100+110);
                 modell[zeile][spalte] = aktuell;
+                aktuellerSpieler.setzeZuSpielendeSpalte(-1);
                 if(pruefeGewonnen() == false)
                 {
                     spielerWechseln();
                 }
             }
-            System.out.println(spalte + "," + zeile);
         }
     }
 
@@ -132,6 +134,22 @@ public class Modell
         }
 
     }
+    
+    public void benutzereingabe(int spalte){
+        if(aktuellerSpieler instanceof Benutzer){
+            aktuellerSpieler.setzeZuSpielendeSpalte(spalte);
+        }
+    }
+    
+    public void modellUpdate(){
+        if(aktuellerSpieler.gibZuSpielendeSpalte() != -1){
+            setzeStein();
+        }else if(aktuellerSpieler instanceof KI){
+            KI ki = (KI)aktuellerSpieler;
+            ki.ermittleZuSpielendeSpalte();
+            setzeStein();
+        }
+    }
 
     /**
      * Wenn vier Steine einer gleichen Farbe in einer Spalte nebeneinanderliegen gebe true zurück, ansonsten false.
@@ -139,28 +157,18 @@ public class Modell
      */
     private boolean pruefeVierInEinerSpalte ()
     {
-        for (int i = 0; i < modell.length; i++)
-        {
-            for (int j = modell[0].length-1; j > 0; j--)
-            {
-                if(modell[i][j] != null)
-                {
-                    if (modell[i][j].getColor().equals(aktuellerSpieler.getColor()) == true)
-                    {
-                        if (j > 3)
-                        {
-                            if(modell[i][j-1] != null && modell[i][j-2] != null && modell[i][j-3] != null)
-                            {
-                                if ((modell[i][j-1].getColor().equals(aktuellerSpieler.getColor()) == true) && (modell[i][j-2].getColor().equals(aktuellerSpieler.getColor()) == true) && (modell[i][j-3]).getColor().equals(aktuellerSpieler.getColor()) == true)
-                                {
-                                    return true;
-                                }
-                            }
-                        }
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j< modell[0].length;j++){
+                if(modell[i][j] != null && modell [i][j].getColor() == aktuellerSpieler.getColor()){
+                    if(modell[i+1][j].getColor() == aktuellerSpieler.getColor() &&
+                    modell[i+2][j].getColor() == aktuellerSpieler.getColor() &&
+                    modell[i+3][j].getColor() == aktuellerSpieler.getColor()){
+                        return true;
                     }
                 }
             }
         }
+        
         return false;
     }
 
@@ -243,4 +251,5 @@ public class Modell
         }
         return false;
     }
+    
 }
