@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Spieler
+comment0.text=\r\n\ Beschreiben\ Sie\ hier\ die\ Klasse\ Spieler.\r\n\ \r\n\ @author\ Rapha\u00E9l\ und\ Alex\r\n\ @version\ 21.09.2021\r\n
+comment1.params=color
+comment1.target=Spieler(java.awt.Color)
+comment1.text=\r\n\ Konstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ Spieler\r\n
+comment2.params=
+comment2.target=void\ initSteine()
+comment2.text=\r\n\ Weist\ dem\ Array\ steine\ neue\ Steinobjekte\ zu.\r\n
+comment3.params=
+comment3.target=boolean\ steineVorhanden()
+comment3.text=\r\n\ Gibt\ zur\u00FCck,\ ob\ in\ dem\ Array\ steine\ noch\ Steinobjekte\ vorhanden\ sind.\r\n\ \r\n\ @return\ Wahrheitswert\r\n
+comment4.params=
+comment4.target=java.awt.Color\ getColor()
+comment4.text=\r\n\ Gibt\ die\ Farbe\ der\ Objekte\ zur\u00FCck.\r\n\ @return\ Color\ \r\n
+comment5.params=
+comment5.target=boolean\ istStartspieler()
+comment5.text=\r\n\ Gibt\ zur\u00FCck,\ ob\ der\ aktuelle\ Stein\ das\ Steinobjekt\ an\ Position\ 20\ im\ Array\ steine\ ist,\r\n\ da\ damit\ der\ Spieler\ auch\ der\ Startspieler\ ist.\r\n\ \r\n\ @return\ Wahrheitswert\r\n
+comment6.params=
+comment6.target=Stein\ setzeStein()
+comment6.text=\r\n\ Diese\ Methode\ nimmt\ den\ aktuellen\ Stein\ aus\ dem\ Array\ (\=>\ null\ setzen)\ und\ gibt\r\n\ das\ Objekt\ an\ dieser\ Position\ zur\u00FCck.\ Der\ Wert\ aktuellerStein\ wird\ um\ 1\ verringert.\r\n\ \r\n\ @return\ Stein\ \r\n
+numComments=7

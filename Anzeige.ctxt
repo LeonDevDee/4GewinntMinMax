@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Anzeige
+comment0.text=\r\n\ Die\ Klasse\ Anzeige\ regelt\ die\ Grafik\ des\ Spiels\r\n\ \r\n\ @author\ (Luka\ und\ Leon)\ \r\n\ \r\n\ @version\ (21.09.2021)\r\n
+comment1.params=modell
+comment1.target=Anzeige(Modell)
+comment1.text=\r\n\ Konstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ Anzeige\r\n\ @param\ modell\ Modell\ \u00FCbergibt\ das\ Modell\r\n
+comment2.params=
+comment2.target=void\ updateView()
+comment2.text=\r\n\ Aktuallisiert\ die\ Anzeige.\ Dabei\ wird\ das\ Spielfeld\ auf\ dem\ Frame\ der\ durch\ die\ \r\n\ SAS-Bibliothek\ erzeugt\ wurde\ (fenster)\ gezeichnet.\ In\ der\ oberen\ Zeile\ werden\ dabei\r\n\ Buttons\ erzeugt,\ auf\ die\ der\ Spieler\ klicken\ kann\ um\ die\ Spalte\ f\u00FCr\ seinen\ n\u00E4chsten\r\n\ Wurf\ zu\ bestimmen.\ \ \ \ \ *\ \r\n\ Bisher\ geworfene\ Steine\ werden\r\n\ \u00FCber\ die\ Verkn\u00FCpfung\ zum\ Modell\ (modell)\ geholt\ und\ ebenfalls\ gezeichnet.\r\n
+comment3.params=
+comment3.target=sas.Circle[]\ getButtons()
+comment3.text=\r\n\ Methode\ gibt\ die\ Buttons\ zur\u00FCck\r\n\r\n\ @return\ Button[]\ \ \r\n
+comment4.params=
+comment4.target=sas.View\ getView()
+comment4.text=\r\n\ Gibt\ das\ Fenster(View)\ zur\u00FCck\r\n\ \r\n\ @return\ View\ \r\n
+numComments=5
