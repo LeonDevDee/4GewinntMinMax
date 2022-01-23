@@ -12,7 +12,6 @@ public abstract class Spieler
     protected Color color;
     protected Stein [] steine;
     protected int aktuellerStein;
-    protected int zuSpielendeSpalte; // -1 -> noch keine Spalte gesetzt
     
     /**
      * Konstruktor für Objekte der Klasse Spieler
@@ -21,7 +20,6 @@ public abstract class Spieler
     {
         this.color = color;
         aktuellerStein = 20;
-        zuSpielendeSpalte = -1;
         initSteine();
     }
 
@@ -95,13 +93,5 @@ public abstract class Spieler
         steine[aktuellerStein] = null;
         aktuellerStein--;
         return akt;
-    }
-    
-    public int gibZuSpielendeSpalte(){
-        return zuSpielendeSpalte;
-    }
-    
-    public void setzeZuSpielendeSpalte(int spalte){
-        zuSpielendeSpalte = spalte;
     }
 }

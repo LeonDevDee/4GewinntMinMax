@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.Random;
+
 /**
  * Beschreiben Sie hier die Klasse KI.
  * 
@@ -14,8 +16,20 @@ public class KI extends Spieler
         this.suchtiefe = suchtiefe;
     }
     
-    public void ermittleZuSpielendeSpalte(){
-        //Hier kommt der MINMAX hin
-        setzeZuSpielendeSpalte(2);
+    public Zug ermittleNachestenZug(Spielsituation s){
+        List<Zug> zuege = s.gibMoeglicheZuege();
+        
+        Random random = new Random();
+        
+        int i = 0;
+        zuege.toFirst();
+        while(zuege.hasAccess()){
+            i++;
+            zuege.next();
+        }
+        
+        
+        
+        return new Zug(random.nextInt(i));
     }
 }

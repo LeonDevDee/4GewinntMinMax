@@ -31,17 +31,13 @@ public class Controller
     public void spielen()
     {
         updateView();
-        while(modell.pruefeGewonnen() == false)
+        while(modell.gibAktuelleSpielsituation().pruefeGewonnen() == false)
         {
             for(int i = 0; i < anzeige.getButtons().length; i++)
             {
                 if(anzeige.getButtons()[i].mouseClicked())
                 {
                     modell.benutzereingabe(i);
-                    modell.modellUpdate();
-                    updateView();
-                    //KI
-                    modell.modellUpdate();
                     updateView();
                 }
             }

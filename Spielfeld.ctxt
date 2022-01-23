@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=Spielfeld
+comment0.text=\r\n\ Tragen\ Sie\ hier\ eine\ Beschreibung\ des\ Interface\ Spielfeld\ ein.\r\n\ \r\n\ @author\ (Ihr\ Name)\ \r\n\ @version\ (eine\ Versionsnummer\ oder\ ein\ Datum)\r\n
+comment1.params=zug
+comment1.target=void\ fuehreZugAus(Zug)
+comment2.params=
+comment2.target=List\ gibMoeglicheZuege()
+numComments=3

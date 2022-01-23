@@ -39,7 +39,7 @@ public class Anzeige
     {
         for(int i = 0; i < 700; i = i + 100)
         {
-            buttons[i/100] = new Circle(i,0, 50, modell.gibFarbeAktuellerSpieler());
+            buttons[i/100] = new Circle(i,0, 50, modell.gibAktuelleSpielsituation().gibFarbeAktuellerSpieler());
         }
         for(int i = 100; i < 700; i = i + 100)
         {
@@ -49,13 +49,13 @@ public class Anzeige
         {
             new Rectangle(0,i, 700, 5, Color.black);
         }
-        for(int i  = 0; i < modell.gibSteine().length; i++)
+        for(int i  = 0; i < modell.gibAktuelleSpielsituation().gibSteine().length; i++)
         {
-            for(int j = 0; j < modell.gibSteine()[0].length; j++)
+            for(int j = 0; j < modell.gibAktuelleSpielsituation().gibSteine()[0].length; j++)
             {
-                if(modell.gibSteine()[i][j] != null)
+                if(modell.gibAktuelleSpielsituation().gibSteine()[i][j] != null)
                 {
-                    new Circle(modell.gibSteine()[i][j].getX(), modell.gibSteine()[i][j].getY(), modell.gibSteine()[i][j].getRadius() ,modell.gibSteine()[i][j].getColor());
+                    new Circle(modell.gibAktuelleSpielsituation().gibSteine()[i][j].getX(), modell.gibAktuelleSpielsituation().gibSteine()[i][j].getY(), modell.gibAktuelleSpielsituation().gibSteine()[i][j].getRadius() ,modell.gibAktuelleSpielsituation().gibSteine()[i][j].getColor());
                 }
             }
         }

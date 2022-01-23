@@ -19,8 +19,4 @@ comment5.text=\r\n\ Gibt\ zur\u00FCck,\ ob\ der\ aktuelle\ Stein\ das\ Steinobje
 comment6.params=
 comment6.target=Stein\ gibAktuellenStein()
 comment6.text=\r\n\ Diese\ Methode\ nimmt\ den\ aktuellen\ Stein\ aus\ dem\ Array\ (\=>\ null\ setzen)\ und\ gibt\r\n\ das\ Objekt\ an\ dieser\ Position\ zur\u00FCck.\ Der\ Wert\ aktuellerStein\ wird\ um\ 1\ verringert.\r\n\ \r\n\ @return\ Stein\ \r\n
-comment7.params=
-comment7.target=int\ gibZuSpielendeSpalte()
-comment8.params=spalte
-comment8.target=void\ setzeZuSpielendeSpalte(int)
-numComments=9
+numComments=7
