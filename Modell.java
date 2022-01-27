@@ -19,7 +19,7 @@ public class Modell
     {
         Stein [][] modell = new Stein[6][7];
         Spieler spieler1 = new Benutzer(Color.red);
-        Spieler spieler2 = new KI(Color.yellow,2);
+        Spieler spieler2 = new KI(Color.yellow,4);
         Spieler aktuellerSpieler = spieler1;
         
         spielsituation = new Spielsituation(modell, aktuellerSpieler, spieler1, spieler2);

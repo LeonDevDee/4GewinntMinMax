@@ -12,34 +12,34 @@ public class Spielsituation
     private Spieler aktuellerSpieler;
     private Spieler spieler1;
     private Spieler spieler2;
-    
+
     private int bewertung;
     private Zug letzterZug;
-    
+
     public Spielsituation(Stein[][] modell, Spieler aktuellerSpieler, Spieler spieler1, Spieler spieler2){
         this.modell = modell;
         this.aktuellerSpieler = aktuellerSpieler;
         this.spieler1 = spieler1;
         this.spieler2 = spieler2;
     }
-    
+
     public Zug gibLetztenZug(){
         return letzterZug;
     }
-    
+
     public void setzeBewertung(int bewertung){
         this.bewertung = bewertung;
     }
-    
+
     public int gibBewertung(){
         return bewertung;
     }
-    
+
     public void fuehreZugAus(Zug zug){
         setzeStein(zug.gibZug());
         letzterZug = zug;
     }
-    
+
     /**
      * Gibt ein 2D-Array mit allen im Attribut modell gespeicherten Steinen zurück
      * 
@@ -49,11 +49,11 @@ public class Spielsituation
     {
         return modell;
     }
-    
+
     public Spieler gibAktuellenSpieler(){
         return aktuellerSpieler;
     }
-    
+
     /**
      * Gib die Farbe des Attributes aktuellerSpieler zurück
      * 
@@ -63,7 +63,7 @@ public class Spielsituation
     {
         return aktuellerSpieler.getColor();
     }
-    
+
     /**
      * Überprüft, welcher Spieler im Attribut AktuellerSpieler gespeichert ist und setzt den anderen 
      * Spieler als AktuellerSpieler. 
@@ -79,7 +79,7 @@ public class Spielsituation
             aktuellerSpieler = spieler1;
         }
     }
-    
+
     /**
      * Wenn der Spieler noch Steine vorhanden hat, holt sich das Modell den Stein vom aktuellen Spieler.
      * Die aktuell mögliche Zeile wird ermittelt. Sollte diese != -1 sein, wird das Modell mit dem
@@ -95,7 +95,7 @@ public class Spielsituation
             Stein aktuell = aktuellerSpieler.gibAktuellenStein();
             aktuell.setX(spalte*100+10);
             int zeile = gibZeileZurSpalte(spalte);
-            
+
             if(zeile != -1)
             {
                 aktuell.setY(zeile * 100+110);
@@ -106,7 +106,7 @@ public class Spielsituation
             }
         }
     }
-    
+
     /**
      * Hier wird die aktuelle Zeile zurückgegeben. Sollte auch die oberste Zeile belegt sein, wird - 1
      * zurück gegeben.
@@ -127,7 +127,7 @@ public class Spielsituation
         }
         return -1;
     }
-    
+
     /**
      * Hier werden alle Pruefemethoden aufgerufen.
      * @return Wahrheitswert
@@ -148,10 +148,10 @@ public class Spielsituation
         }
 
     }
-    
+
     public String spielsituationZuString(){
         String s = " \n ";
-        
+
         for(int i= 0; i < modell.length; i++){
             for(int j = 0; j< modell[i].length; j++){
                 if(modell[i][j] != null){
@@ -160,25 +160,112 @@ public class Spielsituation
                     s = s + "o";
                 }
             }
-            
+
             s = s +" \n ";
         }
-        
+
         return s;
     }
-    
+
     public Spielsituation gibKopie(){
         Stein[][] modellKopie = new Stein[6][7];
-        
+
         for(int i = 0; i < modell.length; i++){
             for(int j = 0; j < modell[i].length; j++){
                 modellKopie[i][j] = modell[i][j];
             }
         }
-        
+
         return new Spielsituation(modellKopie, aktuellerSpieler.gibKopie(), spieler1.gibKopie(), spieler2.gibKopie());
     }
     
+    public int zaehleDreierreihen(Color c){
+        return zaehleDreiDiagonalLR(c) + zaehleDreiDiagonalRL(c) + zaehleDreiInEinerSpalte(c) + zaehleDreiInEinerZeile(c);
+    }
+
+    private int zaehleDreiInEinerSpalte(Color c){
+        int anzahl = 0;
+
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j< modell[0].length;j++){
+                if(modell[i][j] != null && modell [i][j].getColor() == c){
+                    if(modell[i+1][j].getColor() == c &&
+                    modell[i+2][j].getColor() == c){
+                        anzahl++;
+                    }
+                }
+            }
+        }
+
+        return anzahl;
+    }
+
+    private int zaehleDreiInEinerZeile(Color c){
+        int anzahl = 0;
+
+        for(int i = 0; i < modell.length; i++){
+            for(int j = 0; j < 5; j++)
+            {
+                if(modell[i][j] != null && modell[i][j+1] != null && modell[i][j+2] != null)
+                {
+                    if(modell[i][j].getColor() == c && modell[i][j+1].getColor() == c && modell[i][j+2].getColor() == c)
+                    {
+                        anzahl++;
+                    }
+                }
+            }
+        }
+
+        return anzahl;
+    }
+
+    private int zaehleDreiDiagonalLR(Color c){
+        int anzahl = 0;
+
+        for(int i = 2; i < modell.length; i++){
+            for(int j = 0; j < 5; j++){
+                if(modell[i][j] != null && modell[i][j].getColor() == c)
+                {
+                    if(modell[i-1][j+1] != null && c == modell[i-1][j+1].getColor() && 
+                    modell[i-2][j+2] != null && c == modell[i-2][j+2].getColor()){
+                        anzahl++;
+                    }
+                }
+            }
+        }
+
+        return anzahl;
+    }
+
+    private int zaehleDreiDiagonalRL(Color c){
+        int anzahl = 0;
+
+        for (int i = modell.length-1; i >= 0; i--)
+        {
+            for (int j = modell[0].length-1; j > 0; j--)
+            {
+                if(modell[i][j] != null)
+                {
+                    if (modell[i][j].getColor().equals(aktuellerSpieler.getColor()) == true)
+                    {
+                        if (j > 1 && i > 1)
+                        {
+                            if(modell[i-1][j-1] != null && modell[i-2][j-2] != null )
+                            {
+                                if (modell[i-1][j-1].getColor() == c && modell[i-2][j-2].getColor() == c)
+                                {
+                                    anzahl++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return anzahl;
+    }
+
     /**
      * Wenn vier Steine einer gleichen Farbe in einer Spalte nebeneinanderliegen gebe true zurück, ansonsten false.
      * @return Wahrheitswert
@@ -188,15 +275,15 @@ public class Spielsituation
         for(int i = 0; i < 3; i++){
             for(int j = 0; j< modell[0].length;j++){
                 if(modell[i][j] != null && modell [i][j].getColor() == aktuellerSpieler.getColor()){
-                    if(modell[i+1][j].getColor() == aktuellerSpieler.getColor() &&
-                    modell[i+2][j].getColor() == aktuellerSpieler.getColor() &&
-                    modell[i+3][j].getColor() == aktuellerSpieler.getColor()){
+                    if(modell[i+1][j] != null && modell[i+1][j].getColor() == aktuellerSpieler.getColor() &&
+                    modell[i+2][j] != null && modell[i+2][j].getColor() == aktuellerSpieler.getColor() &&
+                    modell[i+3][j] != null && modell[i+3][j].getColor() == aktuellerSpieler.getColor()){
                         return true;
                     }
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -207,7 +294,7 @@ public class Spielsituation
     private boolean pruefeVierInEinerZeile ()
     {
         Color col = gibFarbeAktuellerSpieler();
-        for(int i = 0; i < 6; i++)
+        for(int i = 0; i < modell.length; i++)
         {
             for(int j = 0; j < 4; j++)
             {
@@ -224,7 +311,7 @@ public class Spielsituation
     }
 
     /**
-     * Wenn vier Steine einer Farbe in einer Diagonalen von links nach rechts vorhanden sind, gebe true zurück, ansonsten false.
+     * Wenn vier Steine einer Farbe in einer Diagonalen von links oben nach rechts unten vorhanden sind, gebe true zurück, ansonsten false.
      * @return Wahrheitswert
      */
     private boolean pruefeVierDiagonalLR()
@@ -250,7 +337,7 @@ public class Spielsituation
     }
 
     /**
-     * Wenn vier Steine einer Farbe in einer Diagonalen von rechts nach links vorhanden sind, gebe true zurück, ansonsten false.
+     * Wenn vier Steine einer Farbe in einer Diagonalen von rechts oben nach links unten vorhanden sind, gebe true zurück, ansonsten false.
      * @return Wahrheitswert
      */
     private boolean pruefeVierDiagonalRL ()
