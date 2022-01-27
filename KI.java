@@ -106,9 +106,9 @@ public class KI extends Spieler
 
         if(s.pruefeGewonnen()){
             if(s.gibAktuellenSpieler().getColor() == this.getColor()){
-                b += 1000;
+                b += 1000000;
             }else{
-                b -= 1000;
+                b -= 1000000;
             }
         }
         
