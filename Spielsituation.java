@@ -6,12 +6,15 @@ import java.awt.Color;
  * @author (Ihr Name) 
  * @version (eine Versionsnummer oder ein Datum)
  */
-public class Spielsituation implements Spielfeld
+public class Spielsituation
 {
     private Stein [][] modell;
     private Spieler aktuellerSpieler;
     private Spieler spieler1;
     private Spieler spieler2;
+    
+    private int bewertung;
+    private Zug letzterZug;
     
     public Spielsituation(Stein[][] modell, Spieler aktuellerSpieler, Spieler spieler1, Spieler spieler2){
         this.modell = modell;
@@ -20,19 +23,21 @@ public class Spielsituation implements Spielfeld
         this.spieler2 = spieler2;
     }
     
-    public void fuehreZugAus(Zug zug){
-        setzeStein(zug.gibZug());
+    public Zug gibLetztenZug(){
+        return letzterZug;
     }
     
-    public List<Zug> gibMoeglicheZuege(){
-        List<Zug> zuege = new List<Zug>();
-        for(int i = 0; i < 7; i++){
-            if(gibZeile(i) != -1){
-                zuege.append(new Zug(i));
-            }
-        }
-        
-        return zuege;
+    public void setzeBewertung(int bewertung){
+        this.bewertung = bewertung;
+    }
+    
+    public int gibBewertung(){
+        return bewertung;
+    }
+    
+    public void fuehreZugAus(Zug zug){
+        setzeStein(zug.gibZug());
+        letzterZug = zug;
     }
     
     /**
@@ -65,7 +70,7 @@ public class Spielsituation implements Spielfeld
      */
     private void spielerWechseln()
     {
-        if(aktuellerSpieler == spieler1)
+        if(aktuellerSpieler.getColor() == spieler1.getColor())
         {
             aktuellerSpieler = spieler2;
         }
@@ -89,14 +94,13 @@ public class Spielsituation implements Spielfeld
         {
             Stein aktuell = aktuellerSpieler.gibAktuellenStein();
             aktuell.setX(spalte*100+10);
-            int zeile = gibZeile(spalte);
+            int zeile = gibZeileZurSpalte(spalte);
             
             if(zeile != -1)
             {
                 aktuell.setY(zeile * 100+110);
                 modell[zeile][spalte] = aktuell;
-                if(pruefeGewonnen() == false)
-                {
+                if(!pruefeGewonnen()){
                     spielerWechseln();
                 }
             }
@@ -110,7 +114,7 @@ public class Spielsituation implements Spielfeld
      * @param spalte - gibt die Spalte an, die vom Spieler gewählt wurde (Spaltenzählung ab 0)
      * @return zeilenwert - gibt die Zeile an, die von oben gesehen noch frei ist
      */
-    private int gibZeile(int spalte)
+    public int gibZeileZurSpalte(int spalte)
     {
         if(modell[0][spalte] == null)
         {
@@ -119,7 +123,6 @@ public class Spielsituation implements Spielfeld
             {
                 i = i - 1;
             }
-            System.out.println(i);
             return i;
         }
         return -1;
@@ -144,6 +147,36 @@ public class Spielsituation implements Spielfeld
             return false;
         }
 
+    }
+    
+    public String spielsituationZuString(){
+        String s = " \n ";
+        
+        for(int i= 0; i < modell.length; i++){
+            for(int j = 0; j< modell[i].length; j++){
+                if(modell[i][j] != null){
+                    s = s + modell[i][j].steinZuChar();
+                }else{
+                    s = s + "o";
+                }
+            }
+            
+            s = s +" \n ";
+        }
+        
+        return s;
+    }
+    
+    public Spielsituation gibKopie(){
+        Stein[][] modellKopie = new Stein[6][7];
+        
+        for(int i = 0; i < modell.length; i++){
+            for(int j = 0; j < modell[i].length; j++){
+                modellKopie[i][j] = modell[i][j];
+            }
+        }
+        
+        return new Spielsituation(modellKopie, aktuellerSpieler.gibKopie(), spieler1.gibKopie(), spieler2.gibKopie());
     }
     
     /**

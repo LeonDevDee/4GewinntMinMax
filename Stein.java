@@ -102,4 +102,12 @@ public class Stein
     {
         return color;
     }
+    
+    public char steinZuChar(){
+        if(color == Color.RED){
+            return 'r';
+        }else{
+            return 'y';
+        }
+    }
 }

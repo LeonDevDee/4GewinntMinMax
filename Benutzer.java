@@ -10,4 +10,8 @@ public class Benutzer extends Spieler
     public Benutzer(Color color){
         super(color);
     }
+    
+    public Spieler gibKopie(){
+        return new Benutzer(color);
+    }
 }

@@ -22,6 +22,8 @@ public abstract class Spieler
         aktuellerStein = 20;
         initSteine();
     }
+    
+    public abstract Spieler gibKopie();
 
     /**
      * Weist dem Array steine neue Steinobjekte zu.
@@ -94,4 +96,5 @@ public abstract class Spieler
         aktuellerStein--;
         return akt;
     }
+    
 }

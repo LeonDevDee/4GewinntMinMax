@@ -3,4 +3,6 @@ comment0.target=Benutzer
 comment0.text=\r\n\ Beschreiben\ Sie\ hier\ die\ Klasse\ Benutzer.\r\n\ \r\n\ @author\ (Ihr\ Name)\ \r\n\ @version\ (eine\ Versionsnummer\ oder\ ein\ Datum)\r\n
 comment1.params=color
 comment1.target=Benutzer(java.awt.Color)
-numComments=2
+comment2.params=
+comment2.target=Spieler\ gibKopie()
+numComments=3

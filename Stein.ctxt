@@ -25,4 +25,6 @@ comment7.text=\r\n\ Gibt\ den\ aktuellen\ Radius,\ also\ die\ Gr\u00F6\u00DFe\ d
 comment8.params=
 comment8.target=java.awt.Color\ getColor()
 comment8.text=\r\n\ Gibt\ die\ aktuelle\ Farbe\ des\ Steins\ an.\r\n\ \r\n\ @return\ color\ -\ Die\ Farbe\ des\ Steins\r\n
-numComments=9
+comment9.params=
+comment9.target=char\ steinZuChar()
+numComments=10
