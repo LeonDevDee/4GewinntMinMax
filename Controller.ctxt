@@ -1,13 +1,10 @@
 #BlueJ class context
 comment0.target=Controller
 comment0.text=\r\n\ Beschreiben\ Sie\ hier\ die\ Klasse\ VierGewinnt.\ \=>\ Modell\r\n\ \r\n\ @author\ (Tom,\ Joshua)\ \r\n\ @version\ (21.09.2021)\r\n
-comment1.params=
-comment1.target=Controller()
+comment1.params=kiTiefensuche
+comment1.target=Controller(int)
 comment1.text=\r\n\ Konstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ VierGewinnt\r\n
 comment2.params=
 comment2.target=void\ spielen()
 comment2.text=\r\n\ Diese\ Methode\ erm\u00F6glicht\ es\ zu\ Spielen\ (Spielschleife).\ \u00DCber\ die\ Buttons\ der\ Anzeige\ wird\r\n\ die\ Spalte\ ermittlet\ in\ die\ der\ Spieler\ den\ Stein\ werfen\ m\u00F6chte.\r\n
-comment3.params=
-comment3.target=void\ updateView()
-comment3.text=\r\n\ \r\n\ Diese\ Methode\ aktualisiert\ das\ View-Objekt\r\n\ \r\n
-numComments=4
+numComments=3

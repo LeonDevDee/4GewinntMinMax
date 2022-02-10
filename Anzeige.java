@@ -24,7 +24,7 @@ public class Anzeige
         fenster = new View(700, 700, "4 Gewinnt");
         this.modell = modell;
         buttons = new Circle[7];
-        updateView();
+        updateView(Color.BLACK);
     }
 
     /**
@@ -34,8 +34,10 @@ public class Anzeige
      * Wurf zu bestimmen.     * 
      * Bisher geworfene Steine werden
      * über die Verknüpfung zum Modell (modell) geholt und ebenfalls gezeichnet.
+     * 
+     * c steht für die farbe des Gitters
      */
-    public void updateView()
+    public void updateView(Color c)
     {
         for(int i = 0; i < 700; i = i + 100)
         {
@@ -43,11 +45,11 @@ public class Anzeige
         }
         for(int i = 100; i < 700; i = i + 100)
         {
-            new Rectangle(i,100, 5, 600, Color.black);
+            new Rectangle(i,100, 5, 600, c);
         }
         for(int i = 100; i < 700; i = i + 100)
         {
-            new Rectangle(0,i, 700, 5, Color.black);
+            new Rectangle(0,i, 700, 5, c);
         }
         for(int i  = 0; i < modell.gibAktuelleSpielsituation().gibSteine().length; i++)
         {

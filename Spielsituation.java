@@ -8,7 +8,7 @@ import java.awt.Color;
  */
 public class Spielsituation
 {
-    private Stein [][] modell;
+    private Stein [][] modell; // [zeile][spalte]
     private Spieler aktuellerSpieler;
     private Spieler spieler1;
     private Spieler spieler2;

@@ -15,11 +15,11 @@ public class Modell
     /**
      * Konstruktor für Objekte der Klasse Modell
      */
-    public Modell()
+    public Modell(int KITiefensuche)
     {
         Stein [][] modell = new Stein[6][7];
         Spieler spieler1 = new Benutzer(Color.red);
-        Spieler spieler2 = new KI(Color.yellow,5);
+        Spieler spieler2 = new KI(Color.blue,KITiefensuche);
         Spieler aktuellerSpieler = spieler1;
         
         spielsituation = new Spielsituation(modell, aktuellerSpieler, spieler1, spieler2);
@@ -33,7 +33,9 @@ public class Modell
         if(gibAktuelleSpielsituation().gibAktuellenSpieler() instanceof Benutzer){
             gibAktuelleSpielsituation().fuehreZugAus(new Zug(spalte));
         }
-        
+    }
+    
+    public void kiEingabe(){
         if(!gibAktuelleSpielsituation().pruefeGewonnen()){
             KI ki = (KI)gibAktuelleSpielsituation().gibAktuellenSpieler();
             gibAktuelleSpielsituation().fuehreZugAus(ki.ermittleNachestenZug(gibAktuelleSpielsituation()));

@@ -17,9 +17,9 @@ public class Controller
     /**
      * Konstruktor für Objekte der Klasse VierGewinnt
      */
-    public Controller()
+    public Controller(int kiTiefensuche)
     {
-        modell = new Modell();
+        modell = new Modell(kiTiefensuche);
         anzeige = new Anzeige(modell);
         spielen();
     }
@@ -30,7 +30,7 @@ public class Controller
      */
     public void spielen()
     {
-        updateView();
+        anzeige.updateView(Color.BLACK);
         while(modell.gibAktuelleSpielsituation().pruefeGewonnen() == false)
         {
             for(int i = 0; i < anzeige.getButtons().length; i++)
@@ -38,20 +38,12 @@ public class Controller
                 if(anzeige.getButtons()[i].mouseClicked())
                 {
                     modell.benutzereingabe(i);
-                    updateView();
+                    anzeige.updateView(Color.MAGENTA);
+                    modell.kiEingabe();
+                    anzeige.updateView(Color.BLACK);
                 }
             }
             anzeige.getView().wait(10);
         }
-    }
-
-    /**
-     * 
-     * Diese Methode aktualisiert das View-Objekt
-     * 
-     */
-    private void updateView()
-    {
-        anzeige.updateView();
     }
 }
