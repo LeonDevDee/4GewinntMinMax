@@ -7,4 +7,6 @@ comment1.text=\r\n\ Konstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ VierGewinnt\r\n
 comment2.params=
 comment2.target=void\ spielen()
 comment2.text=\r\n\ Diese\ Methode\ erm\u00F6glicht\ es\ zu\ Spielen\ (Spielschleife).\ \u00DCber\ die\ Buttons\ der\ Anzeige\ wird\r\n\ die\ Spalte\ ermittlet\ in\ die\ der\ Spieler\ den\ Stein\ werfen\ m\u00F6chte.\r\n
-numComments=3
+comment3.params=
+comment3.target=long\ aktuellerZeitpunkt()
+numComments=4

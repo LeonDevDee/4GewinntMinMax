@@ -1,6 +1,9 @@
+
+
 import sas.*;
 import sasio.*;
 import java.awt.Color;
+import java.util.Date;
 /**
  * Beschreiben Sie hier die Klasse VierGewinnt. => Modell
  * 
@@ -39,11 +42,18 @@ public class Controller
                 {
                     modell.benutzereingabe(i);
                     anzeige.updateView(Color.MAGENTA);
+                    long zeitpunkt1 = aktuellerZeitpunkt();
                     modell.kiEingabe();
                     anzeige.updateView(Color.BLACK);
+                    long zeitpunkt2 = aktuellerZeitpunkt();
+                    System.out.println("Rechenzeit: " + (zeitpunkt2 - zeitpunkt1) + "ms");
                 }
             }
             anzeige.getView().wait(10);
         }
+    }
+    
+    private long aktuellerZeitpunkt(){
+        return new Date().getTime();
     }
 }
