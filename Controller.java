@@ -30,6 +30,7 @@ public class Controller
     /**
      * Diese Methode ermöglicht es zu Spielen (Spielschleife). Über die Buttons der Anzeige wird
      * die Spalte ermittlet in die der Spieler den Stein werfen möchte.
+     * Zudem wird bei einem Zug auf die KI zugegriffen um den Gegenzug zu ermitteln. Außerdem wird die Rechnzeit der KI gestoppt
      */
     public void spielen()
     {

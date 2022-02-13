@@ -15,6 +15,8 @@ public abstract class Spieler
     
     /**
      * Konstruktor für Objekte der Klasse Spieler
+     * 
+     * @param color Farbe des Spielers
      */
     public Spieler(Color color)
     {
@@ -23,6 +25,9 @@ public abstract class Spieler
         initSteine();
     }
     
+    /**
+     * Gibt eine neue Instanz mit gleichen Eigenschaften zurück
+     */
     public abstract Spieler gibKopie();
 
     /**
@@ -40,7 +45,7 @@ public abstract class Spieler
     /**
      * Gibt zurück, ob in dem Array steine noch Steinobjekte vorhanden sind.
      * 
-     * @return Wahrheitswert
+     * @return Wahrheitswert, ob der Spieler noch Steine hat
      */
     public boolean steineVorhanden()
     {
@@ -57,7 +62,7 @@ public abstract class Spieler
 
     /**
      * Gibt die Farbe der Objekte zurück.
-     * @return Color 
+     * @return Color Farbe des Spielers
      */ 
     public Color getColor()
     {
@@ -68,7 +73,7 @@ public abstract class Spieler
      * Gibt zurück, ob der aktuelle Stein das Steinobjekt an Position 20 im Array steine ist,
      * da damit der Spieler auch der Startspieler ist.
      * 
-     * @return Wahrheitswert
+     * @return Wahrheitswert, ob der Spieler beginnt
      */
     public boolean istStartspieler()
     {
@@ -87,7 +92,7 @@ public abstract class Spieler
      * Diese Methode nimmt den aktuellen Stein aus dem Array (=> null setzen) und gibt
      * das Objekt an dieser Position zurück. Der Wert aktuellerStein wird um 1 verringert.
      * 
-     * @return Stein 
+     * @return aktuellen Stein
      */
     public Stein gibAktuellenStein()
     {
