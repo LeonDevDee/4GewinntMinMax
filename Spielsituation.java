@@ -178,7 +178,7 @@ public class Spielsituation
 
         return new Spielsituation(modellKopie, aktuellerSpieler.gibKopie(), spieler1.gibKopie(), spieler2.gibKopie());
     }
-    
+
     public int zaehleDreierreihen(Color c){
         return zaehleDreiDiagonalLR(c) + zaehleDreiDiagonalRL(c) + zaehleDreiInEinerSpalte(c) + zaehleDreiInEinerZeile(c);
     }
@@ -186,12 +186,25 @@ public class Spielsituation
     private int zaehleDreiInEinerSpalte(Color c){
         int anzahl = 0;
 
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j< modell[0].length;j++){
-                if(modell[i][j] != null && modell [i][j].getColor() == c){
-                    if(modell[i+1][j].getColor() == c &&
-                    modell[i+2][j].getColor() == c){
-                        anzahl++;
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 5; j++){
+                if(i == 3){
+                    if(modell[i][j] != null && modell[i+1][j] != null && modell[i+2][j] != null){
+                        if(modell[i][j].getColor() == c && modell[i+1][j].getColor() == c && modell[i+2][j].getColor() == c){
+                            anzahl++;
+                        }
+                    }
+                }else{
+                    if(modell[i][j] != null && modell[i+1][j] != null && modell[i+2][j] != null){
+                        if(modell[i+3][j] != null){
+                            if(modell[i][j].getColor() == c && modell[i+1][j].getColor() == c && modell[i+2][j].getColor() == c && modell[i+3][j].getColor() != c){
+                                anzahl++;
+                            }
+                        }else{
+                            if(modell[i][j].getColor() == c && modell[i+1][j].getColor() == c && modell[i+2][j].getColor() == c){
+                                anzahl++;
+                            }
+                        }
                     }
                 }
             }
@@ -203,14 +216,25 @@ public class Spielsituation
     private int zaehleDreiInEinerZeile(Color c){
         int anzahl = 0;
 
-        for(int i = 0; i < modell.length; i++){
-            for(int j = 0; j < 5; j++)
-            {
-                if(modell[i][j] != null && modell[i][j+1] != null && modell[i][j+2] != null)
-                {
-                    if(modell[i][j].getColor() == c && modell[i][j+1].getColor() == c && modell[i][j+2].getColor() == c)
-                    {
-                        anzahl++;
+        for (int i = 0; i < modell.length; i++){
+            for (int j = 0; j < 5; j++){
+                if(j == 4){
+                    if(modell[i][j] != null && modell[i][j+1] != null && modell[i][j+2] != null){
+                        if(modell[i][j].getColor() == c && modell[i][j+1].getColor() == c && modell[i][j+2].getColor() == c){
+                            anzahl++;
+                        }
+                    }
+                }else{
+                    if(modell[i][j] != null && modell[i][j+1] != null && modell[i][j+2] != null){
+                        if(modell[i][j+3] != null){
+                            if(modell[i][j].getColor() == c && modell[i][j+1].getColor() == c && modell[i][j+2].getColor() == c && modell[i][j+3].getColor() != c){
+                                anzahl++;
+                            }
+                        }else{
+                            if(modell[i][j].getColor() == c && modell[i][j+1].getColor() == c && modell[i][j+2].getColor() == c){
+                                anzahl++;
+                            }
+                        }
                     }
                 }
             }
@@ -222,13 +246,25 @@ public class Spielsituation
     private int zaehleDreiDiagonalLR(Color c){
         int anzahl = 0;
 
-        for(int i = 2; i < modell.length; i++){
-            for(int j = 0; j < 5; j++){
-                if(modell[i][j] != null && modell[i][j].getColor() == c)
-                {
-                    if(modell[i-1][j+1] != null && c == modell[i-1][j+1].getColor() && 
-                    modell[i-2][j+2] != null && c == modell[i-2][j+2].getColor()){
-                        anzahl++;
+        for (int i = 2; i < modell.length; i++){
+            for (int j = 0; j < 5; j++){
+                if(i == 2 || j == 4){
+                    if(modell[i][j] != null && modell[i-1][j+1] != null && modell[i-2][j+2] != null){
+                        if(modell[i][j].getColor() == c && modell[i-1][j+1].getColor() == c && modell[i-2][j+2].getColor() == c){
+                            anzahl++;
+                        }
+                    }
+                }else{
+                    if(modell[i][j] != null && modell[i-1][j+1] != null && modell[i-2][j+2] != null){
+                        if(modell[i-3][j+3] != null){
+                            if(modell[i][j].getColor() == c && modell[i-1][j+1].getColor() == c && modell[i-2][j+2].getColor() == c && modell[i-3][j+3].getColor() != c){
+                                anzahl++;
+                            }
+                        }else{
+                            if(modell[i][j].getColor() == c && modell[i-1][j+1].getColor() == c && modell[i-2][j+2].getColor() == c){
+                                anzahl++;
+                            }
+                        }
                     }
                 }
             }
@@ -240,22 +276,146 @@ public class Spielsituation
     private int zaehleDreiDiagonalRL(Color c){
         int anzahl = 0;
 
-        for (int i = modell.length-1; i >= 0; i--)
-        {
-            for (int j = modell[0].length-1; j > 0; j--)
-            {
-                if(modell[i][j] != null)
-                {
-                    if (modell[i][j].getColor().equals(aktuellerSpieler.getColor()) == true)
-                    {
-                        if (j > 1 && i > 1)
-                        {
-                            if(modell[i-1][j-1] != null && modell[i-2][j-2] != null )
-                            {
-                                if (modell[i-1][j-1].getColor() == c && modell[i-2][j-2].getColor() == c)
-                                {
-                                    anzahl++;
-                                }
+        for (int i = modell.length-1; i > 1; i--){
+            for (int j = modell[0].length-1; j > 1; j--){
+                if(i == 2 || j == 2){
+                    if(modell[i][j] != null && modell[i-1][j-1] != null && modell[i-2][j-2] != null){
+                        if(modell[i][j].getColor() == c && modell[i-1][j-1].getColor() == c && modell[i-2][j-2].getColor() == c){
+                            anzahl++;
+                        }
+                    }
+                }else{
+                    if(modell[i][j] != null && modell[i-1][j-1] != null && modell[i-2][j-2] != null){
+                        if(modell[i-3][j-3] != null){
+                            if(modell[i][j].getColor() == c && modell[i-1][j-1].getColor() == c && modell[i-2][j-2].getColor() == c && modell[i-3][j-3].getColor() != c){
+                                anzahl++;
+                            }
+                        }else{
+                            if(modell[i][j].getColor() == c && modell[i-1][j-1].getColor() == c && modell[i-2][j-2].getColor() == c){
+                                anzahl++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return anzahl;
+    }
+
+    public int zaehleZweierreihen(Color c){
+        return zaehleZweiDiagonalLR(c) + zaehleZweiDiagonalRL(c) + zaehleZweiInEinerSpalte(c) + zaehleZweiInEinerZeile(c);
+    }
+
+    private int zaehleZweiInEinerSpalte(Color c){
+        int anzahl = 0;
+
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j< modell[0].length;j++){
+                if(i == 4){
+                    if(modell[i][j] != null && modell[i+1][j] != null){
+                        if(modell [i][j].getColor() == c && modell[i+1][j].getColor() == c){
+                            anzahl++;
+                        } 
+                    }
+                }else{
+                    if(modell[i][j] != null && modell[i+1][j] != null){
+                        if(modell[i+2][j] != null){
+                            if(modell [i][j].getColor() == c && modell[i+1][j].getColor() == c && modell[i+2][j].getColor() != c){
+                                anzahl++;
+                            }
+                        }else{
+                            if(modell [i][j].getColor() == c && modell[i+1][j].getColor() == c){
+                                anzahl++;
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+
+        return anzahl;
+    }
+
+    private int zaehleZweiInEinerZeile(Color c){
+        int anzahl = 0;
+
+        for(int i = 0; i < modell.length; i++){
+            for(int j = 0; j < 6; j++){
+                if(j == 5){
+                    if(modell[i][j] != null && modell[i][j+1] != null){
+                        if(modell[i][j].getColor() == c && modell[i][j+1].getColor() == c){
+                            anzahl++;
+                        }
+                    }
+                }else{
+                    if(modell[i][j] != null && modell[i][j+1] != null){
+                        if(modell[i][j+2] != null){
+                            if(modell[i][j].getColor() == c && modell[i][j+1].getColor() == c && modell[i][j+2].getColor() != c){
+                                anzahl++;
+                            }
+                        }else{
+                            if(modell[i][j].getColor() == c && modell[i][j+1].getColor() == c){
+                                anzahl++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return anzahl;
+    }
+
+    private int zaehleZweiDiagonalLR(Color c){
+        int anzahl = 0;
+
+        for(int i = 1; i < modell.length; i++){
+            for(int j = 0; j < 6; j++){
+                if(i == 1 || j == 5){
+                    if(modell[i][j] != null && modell[i-1][j+1] != null){
+                        if(modell[i][j].getColor() == c && modell[i-1][j+1].getColor() == c){
+                            anzahl++;
+                        }
+                    }
+                }else{
+                    if(modell[i][j] != null && modell[i-1][j+1] != null){
+                        if(modell[i-2][j+2] != null){
+                            if(modell[i][j].getColor() == c && modell[i-1][j+1].getColor() == c && modell[i-2][j+2].getColor() == c){
+                                anzahl++;
+                            }
+                        }else{
+                            if(modell[i][j].getColor() == c && modell[i-1][j+1].getColor() == c){
+                                anzahl++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return anzahl;
+    }
+
+    private int zaehleZweiDiagonalRL(Color c){
+        int anzahl = 0;
+
+        for (int i = modell.length-1; i > 0; i--){
+            for (int j = modell[0].length-1; j > 0; j--){
+                if(i == 1 || j == 1){
+                    if(modell[i][j] != null && modell[i-1][j-1] != null){
+                        if(modell[i][j].getColor() == c && modell[i-1][j-1].getColor() == c){
+                            anzahl++;
+                        }
+                    }
+                }else{
+                    if(modell[i][j] != null && modell[i-1][j-1] != null){
+                        if(modell[i-2][j-2] != null){
+                            if(modell[i][j].getColor() == c && modell[i-1][j-1].getColor() == c && modell[i-2][j-2].getColor() != c){
+                                anzahl++;
+                            }
+                        }else{
+                            if(modell[i][j].getColor() == c && modell[i-1][j-1].getColor() == c){
+                                anzahl++;
                             }
                         }
                     }
@@ -274,10 +434,10 @@ public class Spielsituation
     {
         for(int i = 0; i < 3; i++){
             for(int j = 0; j< modell[0].length;j++){
-                if(modell[i][j] != null && modell [i][j].getColor() == aktuellerSpieler.getColor()){
-                    if(modell[i+1][j] != null && modell[i+1][j].getColor() == aktuellerSpieler.getColor() &&
-                    modell[i+2][j] != null && modell[i+2][j].getColor() == aktuellerSpieler.getColor() &&
-                    modell[i+3][j] != null && modell[i+3][j].getColor() == aktuellerSpieler.getColor()){
+                if(modell[i][j] != null && modell[i+1][j] != null && modell[i+2][j] != null && modell[i+3][j] != null && modell [i][j].getColor() == aktuellerSpieler.getColor()){
+                    if(modell[i+1][j].getColor() == aktuellerSpieler.getColor() &&
+                    modell[i+2][j].getColor() == aktuellerSpieler.getColor() &&
+                    modell[i+3][j].getColor() == aktuellerSpieler.getColor()){
                         return true;
                     }
                 }

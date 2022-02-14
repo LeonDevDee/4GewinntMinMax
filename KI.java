@@ -193,8 +193,11 @@ public class KI extends Spieler
             }
         }
 
-        b += s.zaehleDreierreihen(getColor()) * 100;
-        b += s.zaehleDreierreihen(Color.RED) *-100;
+        b += s.zaehleDreierreihen(getColor()) * 10;
+        b += s.zaehleDreierreihen(Color.RED) *-10;
+        
+        b += s.zaehleZweierreihen(getColor()) * 1;
+        b += s.zaehleZweierreihen(Color.RED) *-1;
 
         return b;
     }
