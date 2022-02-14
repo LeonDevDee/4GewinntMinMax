@@ -15,11 +15,11 @@ public class Modell
     /**
      * Konstruktor für Objekte der Klasse Modell
      */
-    public Modell(int KITiefensuche)
+    public Modell(int KITiefensuche, int suchmodus)
     {
         Stein [][] modell = new Stein[6][7];
         Spieler spieler1 = new Benutzer(Color.red);
-        Spieler spieler2 = new KI(Color.blue,KITiefensuche);
+        Spieler spieler2 = new KI(Color.blue, KITiefensuche, suchmodus);
         Spieler aktuellerSpieler = spieler1;
         
         spielsituation = new Spielsituation(modell, aktuellerSpieler, spieler1, spieler2);

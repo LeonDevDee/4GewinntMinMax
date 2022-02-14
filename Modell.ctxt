@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Modell
 comment0.text=\r\n\ Beschreiben\ Sie\ hier\ die\ Klasse\ Modell.\r\n\ \r\n\ @author\ (Anna,\ Antonia,\ Florian)\ \r\n\ @version\ (22.09.21,\ 16\:20)\r\n
-comment1.params=KITiefensuche
-comment1.target=Modell(int)
+comment1.params=KITiefensuche\ suchmodus
+comment1.target=Modell(int,\ int)
 comment1.text=\r\n\ Konstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ Modell\r\n
 comment2.params=
 comment2.target=Spielsituation\ gibAktuelleSpielsituation()

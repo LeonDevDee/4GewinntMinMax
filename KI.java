@@ -11,6 +11,7 @@ import java.util.Random;
 public class KI extends Spieler
 {
     private int suchtiefe;
+    private int suchmodus; //0: Zufall, 1:MinMax, 2:AlphaBeta
     /**
      * Konstruktor der Klasse KI
      * 
@@ -18,20 +19,21 @@ public class KI extends Spieler
      * @param suchtiefe Die Tiefe, bis zuwelcher der MinMax-Algorithmus suchen soll
      * 
      */
-    public KI(Color color, int suchtiefe){
+    public KI(Color color, int suchtiefe, int suchmodus){
         super(color);
         this.suchtiefe = suchtiefe;
+        this.suchmodus = suchmodus;
     }
-    
+
     /**
      * Erstellt eine Kopie 
      * 
      * @return neue Instanz, mit gleichen Eigenschaften der angesteuerten Instanz von KI
      */
     public Spieler gibKopie(){
-        return new KI(color,suchtiefe);
+        return new KI(color,suchtiefe,suchmodus);
     }
-    
+
     /**
      * Schnittstelle zwischen MinMax-Algorithmus und Spiel. Ruft bildeUndBewerteSpielbaum() auf, und bildet vom rückgegebenen Spielbaum den auszuführenden Zug.
      * 
@@ -39,10 +41,86 @@ public class KI extends Spieler
      * @return den besten ermittelten Folgezug bei der Spielsituation s
      */
     public Zug ermittleNachestenZug(Spielsituation s){
-        Tree<Spielsituation> spielbaum = bildeUndBewerteSpielbaum(suchtiefe, s.gibKopie());
-        System.out.println(spielbaum.getContent().gibBewertung());
+        Zug z = new Zug(0);
+        if(suchmodus == 0){
+            z = zufaelligenZugWaehlen(ermittleMoeglicheZuege(s.gibKopie()));
+        }else if(suchmodus == 1){
+            Tree<Spielsituation> spielbaum = minMax(suchtiefe, s.gibKopie());
+            z = passendenZugZuSpielsituationenErmitteln(spielbaum.getChildTrees(), spielbaum.getContent().gibBewertung());
 
-        return passendenZugZuSpielsituationenErmitteln(spielbaum.getChildTrees(), spielbaum.getContent().gibBewertung());
+            System.out.println(spielbaum.getContent().gibBewertung());
+        }else {
+            List<Spielsituation> folgesituationenList = gibNachfolgesituationen(s.gibKopie());
+            List<Tree<Spielsituation>> folgesituationenTree = new List<Tree<Spielsituation>>();
+            
+            int max = -1000000;
+            
+            folgesituationenList.toFirst();
+            while(folgesituationenList.hasAccess()){
+                Spielsituation g = folgesituationenList.getContent();
+                int wertung = alphaBeta(suchtiefe-1, -1000000, 1000000, g);
+                g.setzeBewertung(wertung);
+                folgesituationenTree.append(new Tree<Spielsituation>(g));
+                
+                if(wertung > max){
+                    max = wertung;
+                }
+                
+                folgesituationenList.next();
+            }
+            
+            z= passendenZugZuSpielsituationenErmitteln(folgesituationenTree, max);
+            
+        }
+
+        return z;
+    }
+
+    public int alphaBeta(int t, int alpha, int beta, Spielsituation s){
+        if(t == 0){
+            return bewerteSpielsituation(s);
+        }else{
+            List<Spielsituation> folgesituationen = gibNachfolgesituationen(s.gibKopie());
+            folgesituationen.toFirst();
+
+            while(folgesituationen.hasAccess()){
+                Spielsituation r = folgesituationen.getContent();
+                if(s.gibAktuellenSpieler() instanceof KI){
+                    alpha = Integer.max(alpha, alphaBeta(t-1, alpha, beta, r));
+                    if(alpha >= beta){
+                        return alpha;
+                    }
+                }else{
+                    beta = Integer.min(beta, alphaBeta(t-1, alpha, beta, r));
+                    if(alpha >= beta){
+                        return beta;
+                    }
+                }
+                folgesituationen.next();
+            }
+
+            if(s.gibAktuellenSpieler() instanceof KI){
+                return alpha;     
+            }else{
+                return beta;
+            }
+        }
+    }
+
+    public List<Spielsituation> gibNachfolgesituationen(Spielsituation s){
+        List<Zug> zuege = ermittleMoeglicheZuege(s);
+        List<Spielsituation> folgeSituationen = new List<Spielsituation>();
+
+        zuege.toFirst();
+        folgeSituationen.toFirst();
+        while(zuege.hasAccess()){
+            Spielsituation s0 = s.gibKopie();
+            s0.fuehreZugAus(zuege.getContent());
+            folgeSituationen.append(s0);
+            zuege.next();
+        }
+
+        return folgeSituationen;
     }
 
     /**
@@ -52,7 +130,7 @@ public class KI extends Spieler
      *  @param t die Tiefe, von der Ausgangssituation aus, bis zu welcher gesucht werden soll
      *  @return einen vollwertigen Spielbaum von Ausgangsituation s bis zur Tiefe t, welcher vollständig bewertet ist
      */
-    public Tree<Spielsituation> bildeUndBewerteSpielbaum(int t, Spielsituation s){
+    public Tree<Spielsituation> minMax(int t, Spielsituation s){
         Tree<Spielsituation> tree = new Tree<Spielsituation>();
 
         System.out.println("Tiefe: " + (suchtiefe - (t-1)));
@@ -63,7 +141,7 @@ public class KI extends Spieler
             tree = new Tree<Spielsituation>(s);
         }else{
             List<Zug> zuege = ermittleMoeglicheZuege(s);
-            
+
             //Nicht mehr weiter suchen wenn gewinnsituation
             if(zuege.isEmpty() || s.pruefeGewonnen()){
                 s.setzeBewertung(bewerteSpielsituation(s));
@@ -74,7 +152,7 @@ public class KI extends Spieler
                 while(zuege.hasAccess()){
                     Spielsituation s0 = s.gibKopie();
                     s0.fuehreZugAus(zuege.getContent());
-                    tree.addChildTree(bildeUndBewerteSpielbaum(t-1,s0));
+                    tree.addChildTree(minMax(t-1,s0));
                     zuege.next();
                 }
 
@@ -108,7 +186,7 @@ public class KI extends Spieler
 
         return tree;
     }
-    
+
     /**
      * Gibt einen Zug zurück, welcher zu einer der gegebenen Folgesituationen mit der gegeben Bewertung führt. 
      * 
@@ -118,7 +196,7 @@ public class KI extends Spieler
      */
     public Zug passendenZugZuSpielsituationenErmitteln(List<Tree<Spielsituation>> folgeSpielsituationen, int bewertung){
         List<Zug> zuege = new List<Zug>();
-        
+
         folgeSpielsituationen.toFirst();
         zuege.toFirst();
         while(folgeSpielsituationen.hasAccess()){
@@ -128,10 +206,10 @@ public class KI extends Spieler
 
             folgeSpielsituationen.next();
         }
-        
+
         return zufaelligenZugWaehlen(zuege);
     }
-    
+
     /**
      * Ermittelt aus mehreren Zügen einen zufälligen.(Zum Beispiel wenn mehrere Züge gleichwertig sind)
      * 
@@ -145,18 +223,18 @@ public class KI extends Spieler
             laenge++;
             zuege.next();
         }
-        
+
         Random r = new Random();
         int zugNr = r.nextInt(laenge);
-        
+
         zuege.toFirst();
         for(int i = 0; i< zugNr; i++){
             zuege.next();
         }
-        
+
         return zuege.getContent();
     }
-    
+
     /**
      * Ermittel die möglichen Züge bei einer gegebenen Situation s
      * 
@@ -195,7 +273,7 @@ public class KI extends Spieler
 
         b += s.zaehleDreierreihen(getColor()) * 10;
         b += s.zaehleDreierreihen(Color.RED) *-10;
-        
+
         b += s.zaehleZweierreihen(getColor()) * 1;
         b += s.zaehleZweierreihen(Color.RED) *-1;
 
