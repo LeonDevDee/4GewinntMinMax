@@ -40,10 +40,10 @@ public class KI extends Spieler
      * @param s die Spielsituation, zu welcher der Folgezug ermittelt werden soll
      * @return den besten ermittelten Folgezug bei der Spielsituation s
      */
-    public Zug ermittleNachestenZug(Spielsituation s){
+    public Zug ermittleNaechstenZug(Spielsituation s){
         Zug z = new Zug(0);
         if(suchmodus == 0){
-            z = zufaelligenZugWaehlen(ermittleMoeglicheZuege(s.gibKopie()));
+            z = zufaelligenZugWaehlen(ermittleMoeglicheZuege(s));
         }else if(suchmodus == 1){
             Tree<Spielsituation> spielbaum = minMax(suchtiefe, s.gibKopie());
             z = passendenZugZuSpielsituationenErmitteln(spielbaum.getChildTrees(), spielbaum.getContent().gibBewertung());
@@ -133,9 +133,6 @@ public class KI extends Spieler
     public Tree<Spielsituation> minMax(int t, Spielsituation s){
         Tree<Spielsituation> tree = new Tree<Spielsituation>();
 
-        System.out.println("Tiefe: " + (suchtiefe - (t-1)));
-        System.out.println(s.spielsituationZuString());
-
         if(t == 0){
             s.setzeBewertung(bewerteSpielsituation(s));
             tree = new Tree<Spielsituation>(s);
@@ -160,13 +157,15 @@ public class KI extends Spieler
                 List<Tree<Spielsituation>> nachfolgeSituationen = tree.getChildTrees();
                 nachfolgeSituationen.toFirst();
 
-                int min = nachfolgeSituationen.getContent().getContent().gibBewertung();
-                int max = nachfolgeSituationen.getContent().getContent().gibBewertung();
+                int min = 1000000;
+                int max = -1000000;
                 while(nachfolgeSituationen.hasAccess()){
-                    if(nachfolgeSituationen.getContent().getContent().gibBewertung() > max){
-                        max = nachfolgeSituationen.getContent().getContent().gibBewertung();
-                    }else if(nachfolgeSituationen.getContent().getContent().gibBewertung() < min){
-                        min = nachfolgeSituationen.getContent().getContent().gibBewertung();
+                    int wertung = nachfolgeSituationen.getContent().getContent().gibBewertung();
+                    if(wertung > max){
+                        max = wertung;
+                    }
+                    if(wertung < min){
+                        min = wertung;
                     }
 
                     nachfolgeSituationen.next();
@@ -182,8 +181,6 @@ public class KI extends Spieler
                 tree.setContent(s);
             }
         }
-        System.out.println("Tiefe " + (suchtiefe - (t-1)) + " fertig : " + s.gibBewertung() + "\n");
-
         return tree;
     }
 
