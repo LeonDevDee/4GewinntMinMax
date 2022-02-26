@@ -36,7 +36,8 @@ public class Modell
     }
     
     public void kiEingabe(){
-        if(!gibAktuelleSpielsituation().pruefeGewonnen()){
+        if(!gibAktuelleSpielsituation().pruefeGewonnen()
+            && gibAktuelleSpielsituation().gibAktuellenSpieler() instanceof KI){
             KI ki = (KI)gibAktuelleSpielsituation().gibAktuellenSpieler();
             gibAktuelleSpielsituation().fuehreZugAus(ki.ermittleNaechstenZug(gibAktuelleSpielsituation()));
         }

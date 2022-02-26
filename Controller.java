@@ -39,7 +39,8 @@ public class Controller
         {
             for(int i = 0; i < anzeige.getButtons().length; i++)
             {
-                if(anzeige.getButtons()[i].mouseClicked())
+                if(anzeige.getButtons()[i].mouseClicked() 
+                && modell.gibAktuelleSpielsituation().gibZeileZurSpalte(i) != -1)
                 {
                     modell.benutzereingabe(i);
                     anzeige.updateView(Color.MAGENTA);
@@ -47,10 +48,11 @@ public class Controller
                     modell.kiEingabe();
                     anzeige.updateView(Color.BLACK);
                     long zeitpunkt2 = aktuellerZeitpunkt();
-                    System.out.println("Rechenzeit: " + (zeitpunkt2 - zeitpunkt1) + "ms");
+                    //System.out.println("Rechenzeit: " + (zeitpunkt2 - zeitpunkt1) + "ms");
+                    System.out.println((zeitpunkt2 - zeitpunkt1));
                 }
             }
-            anzeige.getView().wait(10);
+            anzeige.getView().wait(1);
         }
     }
     

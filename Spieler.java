@@ -49,7 +49,7 @@ public abstract class Spieler
      */
     public boolean steineVorhanden()
     {
-        if(aktuellerStein > 0)
+        if(aktuellerStein >= 0)
         {
             return true;
         }

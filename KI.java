@@ -47,8 +47,6 @@ public class KI extends Spieler
         }else if(suchmodus == 1){
             Tree<Spielsituation> spielbaum = minMax(suchtiefe, s.gibKopie());
             z = passendenZugZuSpielsituationenErmitteln(spielbaum.getChildTrees(), spielbaum.getContent().gibBewertung());
-
-            System.out.println(spielbaum.getContent().gibBewertung());
         }else {
             List<Spielsituation> folgesituationenList = gibNachfolgesituationen(s.gibKopie());
             List<Tree<Spielsituation>> folgesituationenTree = new List<Tree<Spielsituation>>();
@@ -131,7 +129,7 @@ public class KI extends Spieler
      *  @return einen vollwertigen Spielbaum von Ausgangsituation s bis zur Tiefe t, welcher vollständig bewertet ist
      */
     public Tree<Spielsituation> minMax(int t, Spielsituation s){
-        Tree<Spielsituation> tree = new Tree<Spielsituation>();
+        Tree<Spielsituation> tree;
 
         if(t == 0){
             s.setzeBewertung(bewerteSpielsituation(s));
@@ -145,6 +143,7 @@ public class KI extends Spieler
                 tree = new Tree<Spielsituation>(s);
             }else{
                 //Baumerzeugung
+                tree = new Tree<Spielsituation>();
                 zuege.toFirst();
                 while(zuege.hasAccess()){
                     Spielsituation s0 = s.gibKopie();
@@ -154,21 +153,18 @@ public class KI extends Spieler
                 }
 
                 //Bewertungsdurchgabe
-                List<Tree<Spielsituation>> nachfolgeSituationen = tree.getChildTrees();
-                nachfolgeSituationen.toFirst();
+                List<Tree<Spielsituation>> childSituationen = tree.getChildTrees();
+                childSituationen.toFirst();
 
                 int min = 1000000;
                 int max = -1000000;
-                while(nachfolgeSituationen.hasAccess()){
-                    int wertung = nachfolgeSituationen.getContent().getContent().gibBewertung();
-                    if(wertung > max){
-                        max = wertung;
-                    }
-                    if(wertung < min){
-                        min = wertung;
-                    }
+                while(childSituationen.hasAccess()){
+                    int wertung = childSituationen.getContent().getContent().gibBewertung();
+                    
+                    max = Integer.max(wertung, max);
+                    min = Integer.min(wertung, min);
 
-                    nachfolgeSituationen.next();
+                    childSituationen.next();
                 }
 
                 //Spielerermittlung
@@ -193,7 +189,7 @@ public class KI extends Spieler
      */
     public Zug passendenZugZuSpielsituationenErmitteln(List<Tree<Spielsituation>> folgeSpielsituationen, int bewertung){
         List<Zug> zuege = new List<Zug>();
-
+        
         folgeSpielsituationen.toFirst();
         zuege.toFirst();
         while(folgeSpielsituationen.hasAccess()){
@@ -203,7 +199,16 @@ public class KI extends Spieler
 
             folgeSpielsituationen.next();
         }
+        /* irgendein Bug
+        if(zuege.isEmpty()){
+            folgeSpielsituationen.toFirst();
+            while(folgeSpielsituationen.hasAccess()){
+            zuege.append(folgeSpielsituationen.getContent().getContent().gibLetztenZug());
 
+            folgeSpielsituationen.next();
+        }
+        }*/
+        
         return zufaelligenZugWaehlen(zuege);
     }
 
