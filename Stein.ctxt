@@ -27,4 +27,5 @@ comment8.target=java.awt.Color\ getColor()
 comment8.text=\r\n\ Gibt\ die\ aktuelle\ Farbe\ des\ Steins\ an.\r\n\ \r\n\ @return\ color\ -\ Die\ Farbe\ des\ Steins\r\n
 comment9.params=
 comment9.target=char\ steinZuChar()
+comment9.text=\r\n\ Gibt\ den\ Stein\ als\ Char\ 'r'\ oder\ 'b'\ zur\u00FCck\r\n\ @return\ Char\ des\ Steins\r\n
 numComments=10

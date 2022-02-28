@@ -51,14 +51,16 @@ public class Tree<ContentType> {
     private BTNode node;
 
     /**
-     * 
+     * Konstruktor für einen Baum ohne Inhalt
      */
     public Tree() {
         this.node = new BTNode();
     }
 
     /**
+     * Konstruktor für einen Baum mit Inhalt
      * 
+     * @param pContent Inhalt
      */
     public Tree(ContentType pContent) {
         if (pContent != null) {
@@ -69,14 +71,18 @@ public class Tree<ContentType> {
     }
 
     /**
+     * Gibt zurück ob der Knoten einen Inhalt hat
      * 
+     * @return Knoten hat Inhalt
      */
     public boolean isEmpty() {
         return this.node == null;
     }
 
     /**
+     * Setzt den Inhalt des Knoten auf den übergebenen Parameter
      * 
+     * @param pContent Inhalt
      */
     public void setContent(ContentType pContent) {
         if (pContent != null) {
@@ -88,7 +94,9 @@ public class Tree<ContentType> {
     }
 
     /**
+     * Gibt den gespeicherten Inhalt des Knoten zurück
      * 
+     * @return Inhalt
      */
     public ContentType getContent() {
         if (this.isEmpty()) {
@@ -99,7 +107,9 @@ public class Tree<ContentType> {
     }
 
     /**
+     * Fügt dem Baum einen Teilbaum hinzu
      * 
+     * @param pTree hinzuzufügender Teilbaum
      */
     public void addChildTree(Tree<ContentType> pTree) {
         if (!this.isEmpty() && pTree != null) {
@@ -108,7 +118,9 @@ public class Tree<ContentType> {
     }
     
     /**
+     * Ermittelt die Blätter des Baumes
      * 
+     * @return Blätter des Baumes als Liste
      */
     public List<Tree<ContentType>> getLeafNodes(){
         if(getAmountOfChildTrees() == 0){
@@ -131,14 +143,19 @@ public class Tree<ContentType> {
     }
     
     /**
+     * Gibt alle Nachfolgerknoten/Unterbäume zurück.
      * 
+     * @return Nachfolgerknoten/Unterbäume als Liste
      */
     public List<Tree<ContentType>> getChildTrees(){
         return this.node.childTrees;
     }
     
     /**
-     * 
+     *  Gibt den Nachfolgerknoten/Teilbaum mit dem übergebenem index zurück.
+     *  
+     *  @param index Index des Nachfolgerknoten/Teilbaum
+     *  @return Nacholgerknoten des Indexes
      */
     public Tree<ContentType> getChildTree(int index) {
         if (!this.isEmpty()) {
@@ -159,7 +176,9 @@ public class Tree<ContentType> {
     }
 
     /**
+     * Ermittelt die Anzahl der Nachfolgerknoten/Unterbäume.
      * 
+     * @return Anzahl der Nachfolgerknoten/Unterbäume
      */
     public int getAmountOfChildTrees() {
         int i = 0;

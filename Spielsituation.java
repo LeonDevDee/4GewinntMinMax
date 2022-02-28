@@ -15,29 +15,57 @@ public class Spielsituation
 
     private int bewertung;
     private Zug letzterZug;
-
+    
+    /**
+     * Konstruktor der Spielsituation
+     * 
+     * @param modell Spielfeld
+     * @param aktuellerSpieler Spieler, der in der Spielsituation am Zug ist
+     * @param spieler1 Spieler1
+     * @param spieler2 Spieler2
+     */ 
     public Spielsituation(Stein[][] modell, Spieler aktuellerSpieler, Spieler spieler1, Spieler spieler2){
         this.modell = modell;
         this.aktuellerSpieler = aktuellerSpieler;
         this.spieler1 = spieler1;
         this.spieler2 = spieler2;
     }
-
+    
+    /**
+     * Gibt den letzten Zug zurück
+     * 
+     * @return letzter Zug
+     */ 
     public Zug gibLetztenZug(){
         return letzterZug;
     }
-
+    
+    /**
+     * Setzt die Situationsbewertung auf den übergebenen Wert
+     * 
+     * @param bewertung Situationsbewertung
+     */ 
     public void setzeBewertung(int bewertung){
         this.bewertung = bewertung;
     }
-
+    
+    /**
+     * Gibt die Situationsbewertung zurück
+     * 
+     * @return Situationsbewertung
+     */ 
     public int gibBewertung(){
         return bewertung;
     }
-
-    public void fuehreZugAus(Zug zug){
-        setzeStein(zug.gibZug());
-        letzterZug = zug;
+    
+    /**
+     * Führt den übergebenen Zug z aus
+     * 
+     * @param z auszuführender Zug
+     */ 
+    public void fuehreZugAus(Zug z){
+        setzeStein(z.gibZug());
+        letzterZug = z;
     }
 
     /**
@@ -49,7 +77,11 @@ public class Spielsituation
     {
         return modell;
     }
-
+    /**
+     * Gibt aktuellen Spieler zurück
+     * 
+     * @return aktueller Spieler
+     */
     public Spieler gibAktuellenSpieler(){
         return aktuellerSpieler;
     }
@@ -148,25 +180,12 @@ public class Spielsituation
         }
 
     }
-
-    public String spielsituationZuString(){
-        String s = " \n ";
-
-        for(int i= 0; i < modell.length; i++){
-            for(int j = 0; j< modell[i].length; j++){
-                if(modell[i][j] != null){
-                    s = s + modell[i][j].steinZuChar();
-                }else{
-                    s = s + "o";
-                }
-            }
-
-            s = s +" \n ";
-        }
-
-        return s;
-    }
-
+    
+    /**
+     * Gibt neu Instanz der Spielsituation mit selben Werten zurück
+     * 
+     * @return Kopie 
+     */
     public Spielsituation gibKopie(){
         Stein[][] modellKopie = new Stein[6][7];
 
@@ -178,11 +197,21 @@ public class Spielsituation
 
         return new Spielsituation(modellKopie, aktuellerSpieler.gibKopie(), spieler1.gibKopie(), spieler2.gibKopie());
     }
-
+    
+    /**
+     * Gibt Anzahl der Dreierreihen zurück
+     * 
+     * @return Anzahl Dreierreihen
+     */
     public int zaehleDreierreihen(Color c){
         return zaehleDreiDiagonalLR(c) + zaehleDreiDiagonalRL(c) + zaehleDreiInEinerSpalte(c) + zaehleDreiInEinerZeile(c);
     }
-
+    
+    /**
+     * Teil der Dreierreihenzahlung
+     * 
+     * @return Anzahl Dreierreihen Verikal
+     */
     private int zaehleDreiInEinerSpalte(Color c){
         int anzahl = 0;
 
@@ -212,7 +241,12 @@ public class Spielsituation
 
         return anzahl;
     }
-
+    
+    /**
+     * Teil der Dreierreihenzahlung
+     * 
+     * @return Anzahl Dreierreihen Horizontal
+     */
     private int zaehleDreiInEinerZeile(Color c){
         int anzahl = 0;
 
@@ -242,7 +276,12 @@ public class Spielsituation
 
         return anzahl;
     }
-
+    
+    /**
+     * Teil der Dreierreihenzahlung
+     * 
+     * @return Anzahl Dreierreihen Diagonal Linksoben Rechtsunten
+     */
     private int zaehleDreiDiagonalLR(Color c){
         int anzahl = 0;
 
@@ -272,7 +311,12 @@ public class Spielsituation
 
         return anzahl;
     }
-
+    
+    /**
+     * Teil der Dreierreihenzahlung
+     * 
+     * @return Anzahl Dreierreihen Diagonal Rechtsoben linksunten
+     */
     private int zaehleDreiDiagonalRL(Color c){
         int anzahl = 0;
 
@@ -302,11 +346,21 @@ public class Spielsituation
 
         return anzahl;
     }
-
+    
+    /**
+     * Gibt Anzahl der Zweierreihen zurück
+     * 
+     * @return Anzahl Zweierreihen
+     */
     public int zaehleZweierreihen(Color c){
         return zaehleZweiDiagonalLR(c) + zaehleZweiDiagonalRL(c) + zaehleZweiInEinerSpalte(c) + zaehleZweiInEinerZeile(c);
     }
-
+    
+    /**
+     * Teil der Zweierreihenzahlung
+     * 
+     * @return Anzahl Zweierreihen Vertikal
+     */
     private int zaehleZweiInEinerSpalte(Color c){
         int anzahl = 0;
 
@@ -336,7 +390,12 @@ public class Spielsituation
 
         return anzahl;
     }
-
+    
+    /**
+     * Teil der Zweierreihenzahlung
+     * 
+     * @return Anzahl Zweierreihen Horizontal
+     */
     private int zaehleZweiInEinerZeile(Color c){
         int anzahl = 0;
 
@@ -365,7 +424,12 @@ public class Spielsituation
         }
         return anzahl;
     }
-
+    
+    /**
+     * Teil der Zweierreihenzahlung
+     * 
+     * @return Anzahl Zweierreihen Digonal linksunten Rechtsoben
+     */
     private int zaehleZweiDiagonalLR(Color c){
         int anzahl = 0;
 
@@ -395,7 +459,12 @@ public class Spielsituation
 
         return anzahl;
     }
-
+    
+    /**
+     * Teil der Zweierreihenzahlung
+     * 
+     * @return Anzahl Zweierreihen Diagonal Rechtsoben linksunten
+     */
     private int zaehleZweiDiagonalRL(Color c){
         int anzahl = 0;
 

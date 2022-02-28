@@ -73,7 +73,16 @@ public class KI extends Spieler
 
         return z;
     }
-
+    
+    /**
+     * Alpha-Beta-Suche ermittelt die Wertung einer Spielsituation s mit einer gegebenen Tiefe t und dem Maximum Alpha und Minimum Beta
+     * 
+     * @param t Suchtiefe
+     * @param alpha Maximum, bei initialem Aufruf -1000000
+     * @param beta Minimum, bei initialem Aufruf 1000000
+     * @param s Ausgangssituation
+     * @return Wertung der Ausgangssituation s
+     */
     public int alphaBeta(int t, int alpha, int beta, Spielsituation s){
         if(t == 0){
             return bewerteSpielsituation(s);
@@ -104,7 +113,13 @@ public class KI extends Spieler
             }
         }
     }
-
+    
+    /**
+     * Gibt alle Situationen aus, die nach einer Spielsituation s kommen könnten zurück
+     * 
+     * @param s Spielsituation, von welcher Nachfolgesituationen gesucht werden
+     * @return Liste aller nachfolgenden Spielsituationen
+     */
     public List<Spielsituation> gibNachfolgesituationen(Spielsituation s){
         List<Zug> zuege = ermittleMoeglicheZuege(s);
         List<Spielsituation> folgeSituationen = new List<Spielsituation>();
@@ -122,7 +137,7 @@ public class KI extends Spieler
     }
 
     /**
-     * Die eigentliche MinMax-Methode. Bildet und bewertet einen gesamten Spielbaum zur Situation s bis zur Tiefe t
+     * Die MinMax-Methode. Bildet und bewertet einen gesamten bewerteten Spielbaum zur Situation s bis zur Tiefe t
      *  
      *  @param s die Ausgangssituation
      *  @param t die Tiefe, von der Ausgangssituation aus, bis zu welcher gesucht werden soll

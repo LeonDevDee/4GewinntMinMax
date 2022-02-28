@@ -20,9 +20,9 @@ public class Controller
     /**
      * Konstruktor für Objekte der Klasse VierGewinnt
      */
-    public Controller(int kiTiefensuche, int suchmodus)
+    public Controller(int suchtiefe, int suchmodus)
     {
-        modell = new Modell(kiTiefensuche, suchmodus);
+        modell = new Modell(suchtiefe, suchmodus);
         anzeige = new Anzeige(modell);
         spielen();
     }

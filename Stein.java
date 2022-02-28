@@ -103,11 +103,15 @@ public class Stein
         return color;
     }
     
+    /**
+     * Gibt den Stein als Char 'r' oder 'b' zurück
+     * @return Char des Steins
+     */
     public char steinZuChar(){
         if(color == Color.RED){
             return 'r';
         }else{
-            return 'y';
+            return 'b';
         }
     }
 }

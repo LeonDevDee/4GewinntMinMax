@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Controller
 comment0.text=\r\n\ Beschreiben\ Sie\ hier\ die\ Klasse\ VierGewinnt.\ \=>\ Modell\r\n\ \r\n\ @author\ (Tom,\ Joshua)\ \r\n\ @version\ (21.09.2021)\r\n
-comment1.params=kiTiefensuche\ suchmodus
+comment1.params=suchtiefe\ suchmodus
 comment1.target=Controller(int,\ int)
 comment1.text=\r\n\ Konstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ VierGewinnt\r\n
 comment2.params=
